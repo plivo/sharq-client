@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(
-    name='SharQ-Client',
+    name='sharq_client',
     version='0.0.2-dev',
     url='http://github.com/plivo/sharq-client',
     author='Plivo Team',
