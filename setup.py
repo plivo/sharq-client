@@ -8,7 +8,7 @@ setup(
     url='http://github.com/plivo/sharq-client',
     author='Plivo Team',
     author_email='hello@plivo.com',
-    py_modules=['sharq-client'],
+    py_modules=['sharq_client'],
     license=open('LICENSE.txt').read(),
     description='SharQ Client',
     long_description=open('README.md').read(),
