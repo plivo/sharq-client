@@ -16,19 +16,19 @@ class SharQClient(object):
         }
         self._url = '%s://%s:%s' % (scheme, host, port)
 
-    def enqueue(**params):
+    def enqueue(self, **params):
         """Enqueues a job in SharQ server."""
         response = self._rs.post(
             '%s/enqueue/' % self._url, data=json.dumps(params))
         return (response.status_code, json.loads(response.text))
 
-    def dequeue(**params):
+    def dequeue(self, **params):
         """Dequeues a job from SharQ server."""
         response = self._rs.post(
             '%s/dequeue/' % self._url, data=json.dumps(params))
         return (response.status_code, json.loads(response.text))
 
-    def finish(**params):
+    def finish(self, **params):
         """Marks a job as successfully completed in SharQ server."""
         response = self._rs.post(
             '%s/finish/' % self._url, data=json.dumps(params))
