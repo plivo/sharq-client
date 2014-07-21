@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='SharQClient',
-    version='0.0.1-alpha',
+    version='0.1.0-alpha',
     url='http://github.com/plivo/sharq-client',
     author='Plivo Team',
     author_email='hello@plivo.com',
@@ -13,7 +13,6 @@ setup(
     description='SharQ Client',
     long_description=open('README.md').read(),
     install_requires=[
-        'requests==2.3.0',
-        'ujson==1.33'
+        'requests==2.3.0'
     ],
 )

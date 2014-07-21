@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2014 Plivo Team. See LICENSE.txt for details.
 import requests
-import ujson as json
+import json
 
 
 class BadParameterException(Exception):
@@ -56,4 +56,26 @@ class SharQClient(object):
 
         response = self._rs.post(
             '%s/finish/%s/%s/%s/' % (self._url, queue_type, queue_id, job_id))
+        return (response.status_code, json.loads(response.text))
+
+    def metrics(self, **params):
+        """Fetches various metrics from SharQ server."""
+        queue_type = params.pop('queue_type', None)
+        queue_id = params.pop('queue_id', None)
+
+        if not queue_type and not queue_id:
+            response = self._rs.get(
+                '%s/metrics/' % (self._url))
+        elif queue_type and not queue_id:
+            response = self._rs.get(
+            '%s/metrics/%s/' % (self._url, queue_type))
+        elif not queue_type and queue_id:
+            # invalid case
+            return (400, {
+                'status': 'failure',
+                'message': '`queue_id` should be accompanied by `queue_type`.'})
+        elif queue_type and queue_id:
+            response = self._rs.get(
+                '%s/metrics/%s/%s/' % (self._url, queue_type, queue_id))
+
         return (response.status_code, json.loads(response.text))
