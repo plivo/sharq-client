@@ -58,6 +58,28 @@ class SharQClient(object):
             '%s/finish/%s/%s/%s/' % (self._url, queue_type, queue_id, job_id))
         return (response.status_code, json.loads(response.text))
 
+    def interval(self, **params):
+        """Updates the interval of a queue for a particular type."""
+        try:
+            queue_type = params.pop('queue_type')
+            queue_id = params.pop('queue_id')
+            interval = params.pop('interval')
+        except KeyError as e:
+            return (400, {
+                'status': 'failure',
+                'message': '`%s` is a mandatory parameter' % e.message})
+
+        params = {
+            'interval': interval
+        }
+
+        response = self._rs.post(
+            '%s/interval/%s/%s/' % (self._url, queue_type, queue_id),
+            data=json.dumps(params),
+            headers={'Content-Type': 'application/json'})
+        return (response.status_code, json.loads(response.text))
+
+
     def metrics(self, **params):
         """Fetches various metrics from SharQ server."""
         queue_type = params.pop('queue_type', None)
