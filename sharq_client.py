@@ -12,12 +12,14 @@ class SharQClient(object):
 
     """Provides methods to interact with SharQ server."""
 
-    def __init__(self, host, port=80, scheme='http'):
+    def __init__(self, host, port=80, scheme='http', auth=None):
         """Configures and constructs the SharQClient"""
         self._rs = requests.Session()
         self._rs.headers = {
             'Accept': 'application/json'
         }
+        if auth:
+            self._rs.auth = auth
         self._url = '%s://%s:%s' % (scheme, host, port)
 
     def enqueue(self, **params):
