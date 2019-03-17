@@ -142,3 +142,26 @@ class SharQClient(object):
             if response.status_code is not None and response.status_code >= 400:
                 return (response.status_code,
                         {'error': response.reason})
+    
+    def delete_queue(self, **params):
+        """Delete a queue from SharQ server."""
+        try:
+            queue_type = params.pop('queue_type')
+            queue_id = params.pop('queue_id')
+            purge_all = params.get('purge_all') == True
+            params.update({'purge_all': purge_all})
+            response = self._rs.delete(
+                '%s/deletequeue/%s/%s/' % (self._url, queue_type, queue_id),
+                data=json.dumps(params),
+                headers={'Content-Type': 'application/json'})
+            return (response.status_code,
+                    json.loads(response.text))
+
+        except KeyError as e:
+            return (400, {
+                'status': 'failure',
+                'message': '`%s` is a mandatory parameter' % e.message})
+        except Exception as e:
+            if response.status_code is not None and response.status_code >= 400:
+                return (response.status_code,
+                        {'error': response.reason})
