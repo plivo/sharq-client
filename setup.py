@@ -13,6 +13,6 @@ setup(
     description='SharQ Client',
     long_description=open('README.md').read(),
     install_requires=[
-        'requests==2.3.0'
+        'requests==2.20.0'
     ],
 )
