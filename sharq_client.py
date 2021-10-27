@@ -2,7 +2,7 @@
 # Copyright (c) 2014 Plivo Team. See LICENSE.txt for details.
 import requests
 import json
-
+from requests.adapters import HTTPAdapter
 
 class BadParameterException(Exception):
     pass
@@ -12,9 +12,10 @@ class SharQClient(object):
 
     """Provides methods to interact with SharQ server."""
 
-    def __init__(self, host, port=80, scheme='http', auth=None):
+    def __init__(self, host, port=80, scheme='http', auth=None, pool_connections=10, pool_maxsize=10, max_retries=0):
         """Configures and constructs the SharQClient"""
         self._rs = requests.Session()
+        self._rs.mount(scheme+'://', HTTPAdapter(pool_connections=pool_connections, pool_maxsize=pool_maxsize, max_retries=max_retries, pool_block=False))
         self._rs.headers = {
             'Accept': 'application/json'
         }
