@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='SharQClient',
-    version='0.5.0-alpha',
+    version='0.6.0-alpha',
     url='http://github.com/plivo/sharq-client',
     author='Plivo Team',
     author_email='hello@plivo.com',
